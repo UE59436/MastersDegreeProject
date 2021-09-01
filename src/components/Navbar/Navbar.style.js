@@ -8,9 +8,16 @@ export const NavbarContainer = styled.nav`
     justify-content: space-between;
     padding: 0 20px;
     background: linear-gradient(90deg, #e31329, #bf0d13);
-
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, .2);
+    box-shadow: 0px 1px 5px 5px rgba(0,0,0,0.2);
+    
     @media screen and (max-width: 800px) {
         flex-direction: column;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        box-shadow: none;
     }
 `
 

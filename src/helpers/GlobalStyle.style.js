@@ -8,6 +8,10 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0;
     }
 
+    html {
+        scroll-behavior: smooth;
+    }
+
     body {
         background-color: #f4f4f4;
         font-size: 1rem;
@@ -18,6 +22,11 @@ export const GlobalStyle = createGlobalStyle`
 
     ul, ol {
         list-style: none;
+    }
+
+    a, a:hover, a:visited, a:link, a:active {
+        color: inherit;
+        text-decoration: none;
     }
 
     h4 {

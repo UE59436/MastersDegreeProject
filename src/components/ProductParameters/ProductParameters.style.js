@@ -24,6 +24,7 @@ export const ParametersTitle = styled.h5`
     font-size: 1rem;
     letter-spacing: 1px;
     text-transform: uppercase;
+    margin-left: 30px;
 `
 
 export const ParametersTable = styled.div`

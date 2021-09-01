@@ -1,3 +1,4 @@
+import CanvasComponent from "./components/CanvasComponent/CanvasComponent";
 import Documentation from "./components/Documentation/Documentation";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
@@ -15,19 +16,20 @@ function App() {
       <Navbar />
 
       <ProductNavigation />
-      <ProductImageCarousel />
+      {/* <ProductImageCarousel /> */}
+      <CanvasComponent />
 
-      <SectionTitle>
+      <SectionTitle id="description">
         Opis Produktu
       </SectionTitle>
       <ProductDescription />
 
-      <SectionTitle>
+      <SectionTitle id="parameters">
         Specyfikacja
       </SectionTitle>
       <ProductParameters />
 
-      <SectionTitle>
+      <SectionTitle id="documentation">
         Pobierz dokumenty
       </SectionTitle>
       <Documentation />
