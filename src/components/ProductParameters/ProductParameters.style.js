@@ -13,7 +13,6 @@ export const ParametersSectionContainer = styled.section`
 export const ParametersSectionContent = styled.div`
     width: 80%;
     margin: 0 auto;
-
     @media screen and (max-width: 600px) {
         width: 100%;
         margin: 20px auto;
@@ -24,6 +23,7 @@ export const ParametersTitle = styled.h5`
     font-size: 1rem;
     letter-spacing: 1px;
     text-transform: uppercase;
+    margin-left: 30px;
 `
 
 export const ParametersTable = styled.div`

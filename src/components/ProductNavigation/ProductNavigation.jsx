@@ -8,13 +8,19 @@ const ProductNavigation = () => {
                 <ProductNavigationProductName>
                     Piekarnik a12-b234-gdi11
                 </ProductNavigationProductName>
-                <ProductNavigationMenuItem>
+                <ProductNavigationMenuItem
+                    href="#description"
+                >
                     Opis produktu
                 </ProductNavigationMenuItem>
-                <ProductNavigationMenuItem>
+                <ProductNavigationMenuItem
+                    href="#parameters"
+                >
                     Specyfikacja
                 </ProductNavigationMenuItem>
-                <ProductNavigationMenuItem>
+                <ProductNavigationMenuItem
+                    href="#documentation"
+                >
                     Pobierz dokumenty
                 </ProductNavigationMenuItem>
             </ProductNavigationMenu>

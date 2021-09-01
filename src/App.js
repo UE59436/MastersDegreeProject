@@ -17,17 +17,17 @@ function App() {
       <ProductNavigation />
       <ProductImageCarousel />
 
-      <SectionTitle>
+      <SectionTitle id="description">
         Opis Produktu
       </SectionTitle>
       <ProductDescription />
 
-      <SectionTitle>
+      <SectionTitle id="parameters">
         Specyfikacja
       </SectionTitle>
       <ProductParameters />
 
-      <SectionTitle>
+      <SectionTitle id="documentation">
         Pobierz dokumenty
       </SectionTitle>
       <Documentation />
