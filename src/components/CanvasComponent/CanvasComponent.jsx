@@ -22,16 +22,17 @@ const FloorMesh = () => {
     return (
         <mesh
         rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, -25, 0]}
+        position={[0, -11, 0]}
         receiveShadow>
         <planeBufferGeometry attach='geometry' args={[100, 100]} />
         <shadowMaterial attach='material' opacity={0.3} />
+        {/* <meshBasicMaterial attach="material" color="pink" /> */}
       </mesh>
     );
   };
 
 const Model = () => {
-    const gltf =  useGLTF("/Models/scene.gltf");
+    const gltf =  useGLTF("/Models/piekarnik.glb");
     return (
         <primitive object={gltf.scene} dispose={null} />
     )
@@ -49,15 +50,15 @@ const CanvasComponent = () => {
             >
                 <OrthographicCamera 
                     makeDefault 
-                    position={[0, 40, 75]} 
-                    zoom={width <= 600 ? 2 : 5} 
-                    fov={60} 
+                    position={[0, 15, 180]} 
+                    zoom={width <= 600 ? 10 : 30} 
+                    fov={80} 
                 /> 
                 <ambientLight intensity={0.3} />
                 <directionalLight
                 castShadow
-                position={[0, 10, 0]}
-                intensity={1.5}
+                position={[0, 20, 0]}
+                intensity={2}
                 shadow-mapSize-width={1024}
                 shadow-mapSize-height={1024}
                 shadow-camera-far={50}
@@ -69,8 +70,13 @@ const CanvasComponent = () => {
             <Suspense fallback={null}>
                 <pointLight position={[-10, 0, -20]} intensity={0.5} />
                 <pointLight position={[0, -10, 0]} intensity={1.5} />
+                <pointLight position={[10, 0, 20]} intensity={0.5} />
+                <pointLight position={[0, 10, 0]} intensity={1.5} />
                 <group>
-                    <mesh position={[0, -25, 0]}>
+                    <mesh 
+                        position={[1, -9, 0]}
+                        rotation={[Math.PI, 0, -Math.PI]}
+                    >
                         <Model />
                     </mesh>
                     <FloorMesh />
@@ -80,8 +86,8 @@ const CanvasComponent = () => {
                     rotateSpeed={.25}
                     maxPolarAngle={0.5 * Math.PI}
                     minPolarAngle={0}
-                    maxZoom={width <= 600 ? 5 : 15}
-                    minZoom={width <= 600 ? 2 : 5}
+                    maxZoom={width <= 600 ? 15 : 75}
+                    minZoom={width <= 600 ? 10 : 25}
                     zoomSpeed={.5}
                 />
             </Suspense>
