@@ -3,9 +3,12 @@ import { Canvas } from "react-three-fiber";
 import { softShadows, OrbitControls, useGLTF, OrthographicCamera, useProgress } from "@react-three/drei";
 import { CanvasContainer, Loading, LoadingBar, LoadingBarContainer } from './CanvasComponent.style';
 import useWindowDimensions from '../../hooks/useWindowDimenstions';
+import useLockBodyScroll from '../../hooks/useLockBodyScroll';
 
 const Loader = () => {
     const { active, progress } = useProgress();
+    useLockBodyScroll(active, [active]);
+
     return (
         active && (
           <Loading className='loading'>
