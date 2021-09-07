@@ -35,7 +35,7 @@ const FloorMesh = () => {
   };
 
 const Model = () => {
-    const gltf =  useGLTF("/Models/piekarnik.glb");
+    const gltf =  useGLTF("/Models/piekarnikUproszczony1.gltf");
     return (
         <primitive object={gltf.scene} dispose={null} />
     )
