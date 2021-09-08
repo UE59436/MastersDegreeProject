@@ -4,50 +4,53 @@ import { softShadows, OrbitControls, useGLTF, OrthographicCamera, useProgress } 
 import { CanvasContainer, Loading, LoadingBar, LoadingBarContainer } from './CanvasComponent.style';
 import useWindowDimensions from '../../hooks/useWindowDimenstions';
 import useLockBodyScroll from '../../hooks/useLockBodyScroll';
+import ModelInner from './ModelInner';
+import ModelOuter from './ModelOuter';
+import ModelFront from './ModelFront';
 
 const Loader = () => {
     const { active, progress } = useProgress();
     useLockBodyScroll(active, [active]);
-
+    
     return (
         active && (
-          <Loading className='loading'>
+            <Loading className='loading'>
             <LoadingBarContainer className='loading-bar-container'>
               <LoadingBar className='loading-bar' style={{ width: progress }}>
-              </LoadingBar>
+                  </LoadingBar>
             </LoadingBarContainer>
           </Loading>
         )
-    );
-  }
+        );
+    }
 
-const FloorMesh = () => {
-    return (
-        <mesh
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, -11, 0]}
-        receiveShadow>
+    const Model = () => {
+        const gltf =  useGLTF("/Models/ovenPoly.glb");
+        return (
+            <primitive object={gltf.scene} dispose={null} />
+        )
+    }
+    
+    const FloorMesh = () => {
+        return (
+            <mesh
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, -11, 0]}
+            receiveShadow>
         <planeBufferGeometry attach='geometry' args={[100, 100]} />
         <shadowMaterial attach='material' opacity={0.3} />
         {/* <meshBasicMaterial attach="material" color="pink" /> */}
       </mesh>
     );
-  };
-
-const Model = () => {
-    const gltf =  useGLTF("/Models/piekarnikUproszczony1.gltf");
-    return (
-        <primitive object={gltf.scene} dispose={null} />
-    )
-}
-
-const CanvasComponent = () => {
+};
+    
+    const CanvasComponent = () => {
     const  {width} = useWindowDimensions();
     softShadows();
 
     return (
         <CanvasContainer>
-            <Canvas
+                <Canvas
                 colorManagement
                 shadowMap
             >
@@ -76,13 +79,16 @@ const CanvasComponent = () => {
                 <pointLight position={[10, 0, 20]} intensity={0.5} />
                 <pointLight position={[0, 10, 0]} intensity={1.5} />
                 <group>
-                    <mesh 
+                <mesh 
                         position={[1, -9, 0]}
-                        rotation={[Math.PI, 0, -Math.PI]}
+                        rotation={[0, Math.PI, -Math.PI]}
                     >
                         <Model />
+                        {/* <ModelInner /> */}
+                        {/* <ModelOuter />
+                        <ModelFront /> */}
                     </mesh>
-                    <FloorMesh />
+                    {/* <FloorMesh /> */}
                 </group>
                 <OrbitControls 
                     enablePan={false}
