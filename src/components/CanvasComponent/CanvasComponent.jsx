@@ -1,12 +1,10 @@
-import React, { Suspense } from 'react'
-import { Canvas } from "react-three-fiber";
+import React, { Suspense, useRef, useState } from 'react'
+import { Canvas, useThree } from "react-three-fiber";
 import { softShadows, OrbitControls, useGLTF, OrthographicCamera, useProgress } from "@react-three/drei";
+import { useDrag } from "react-use-gesture"
 import { CanvasContainer, Loading, LoadingBar, LoadingBarContainer } from './CanvasComponent.style';
 import useWindowDimensions from '../../hooks/useWindowDimenstions';
 import useLockBodyScroll from '../../hooks/useLockBodyScroll';
-import ModelInner from './ModelInner';
-import ModelOuter from './ModelOuter';
-import ModelFront from './ModelFront';
 
 const Loader = () => {
     const { active, progress } = useProgress();
@@ -24,10 +22,40 @@ const Loader = () => {
         );
     }
 
-    const Model = () => {
-        const gltf =  useGLTF("/Models/ovenPoly.glb");
+    const OvenBody = () => {
+        const gltf =  useGLTF("/Models/ovenBody.glb");
         return (
             <primitive object={gltf.scene} dispose={null} />
+        )
+    }
+
+    const OvenFront = ({ setOrbitRotationEnabled }) => {
+        const gltf =  useGLTF("/Models/ovenFront.glb");
+        const ref = useRef();
+        const [rotation, setRotation] = useState([0, 0, 0])
+        const {size, viewport} = useThree();
+        let aspect = size?.width / viewport?.width
+
+        const bind = useDrag(({ offset: [x, y], down }) => {
+            if(down) {
+                setOrbitRotationEnabled(false)
+            } else {
+                setOrbitRotationEnabled(true)
+            }
+            const rotationSpeed = .2;
+            let degree = Math.PI * y * rotationSpeed / aspect;
+            const min = 0;
+            const max = Math.PI / 2.1
+
+            setRotation([
+                degree <= min ? 0 : degree >= max ? max : degree, 
+                0, 
+                0
+            ]);
+        }, { pointerEvents: true });
+
+        return (
+            <primitive ref={ref} {...bind()} position={[-1, -.25, -7.5]} rotation={rotation} object={gltf.scene} dispose={null} />
         )
     }
     
@@ -46,6 +74,7 @@ const Loader = () => {
     
     const CanvasComponent = () => {
     const  {width} = useWindowDimensions();
+    const [orbitRotationEnabled, setOrbitRotationEnabled] = useState(true);
     softShadows();
 
     return (
@@ -83,7 +112,8 @@ const Loader = () => {
                         position={[1, -9, 0]}
                         rotation={[0, Math.PI, -Math.PI]}
                     >
-                        <Model />
+                        <OvenBody />
+                        <OvenFront setOrbitRotationEnabled={setOrbitRotationEnabled} />
                         {/* <ModelInner /> */}
                         {/* <ModelOuter />
                         <ModelFront /> */}
@@ -92,6 +122,7 @@ const Loader = () => {
                 </group>
                 <OrbitControls 
                     enablePan={false}
+                    enableRotate={orbitRotationEnabled}
                     rotateSpeed={.25}
                     maxPolarAngle={0.5 * Math.PI}
                     minPolarAngle={0}
